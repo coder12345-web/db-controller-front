@@ -1,7 +1,7 @@
 // ==================== TOKEN REFRESH SYSTEM ====================
 // This file should be loaded FIRST before all other scripts
 
-const API_BASE = 'http://localhost:8080/api/v1';
+const API_BASE = 'https://db-controller-production.up.railway.app/api/v1';
 
 // Flag to prevent multiple simultaneous refresh attempts
 let isRefreshing = false;
