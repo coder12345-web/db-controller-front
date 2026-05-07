@@ -1,5 +1,5 @@
 // ==================== API BASE URL ====================
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = 'https://db-controller-production.up.railway.app/';
 
 // ==================== TOAST NOTIFICATION ====================
 function showToast(message, type = 'success', duration = 3000) {

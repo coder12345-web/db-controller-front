@@ -1,5 +1,5 @@
 // ==================== USERS SECTION ====================
-const USERS_API = 'http://localhost:8080/api/v1';
+const USERS_API = 'https://db-controller-production.up.railway.app/api/v1';
 let usersSearchTimeout = null;
 let currentUser = null;
 let DEFAULT_DEVELOPER_ROLE_ID = null;  // Will be set dynamically when roles load

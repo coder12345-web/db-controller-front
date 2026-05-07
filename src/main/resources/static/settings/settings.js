@@ -367,7 +367,7 @@ async function verifyCurrentPassword() {
     try {
         const encodedPassword = btoa(currentPassword);
 
-        const response = await fetch(`http://localhost:8080/api/v1/user/password?password=${encodeURIComponent(encodedPassword)}`, {
+        const response = await fetch(`https://db-controller-production.up.railway.app/api/v1/user/password?password=${encodeURIComponent(encodedPassword)}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${getToken()}`,
@@ -541,7 +541,7 @@ async function saveNewAccountPassword(event) {
         const encodedPassword = btoa(unescape(encodeURIComponent(newPassword)));
 
         const response = await fetch(
-            `http://localhost:8080/api/v1/user/password?password=${encodeURIComponent(encodedPassword)}`,
+            `https://db-controller-production.up.railway.app/api/v1/user/password?password=${encodeURIComponent(encodedPassword)}`,
             {
                 method: 'POST',
                 headers: {

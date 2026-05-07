@@ -1,6 +1,6 @@
 // ==================== DEBBIE CHAT LOGIC ====================
 
-const DEBBIE_API = 'http://localhost:8080/api/v1/chat';
+const DEBBIE_API = 'https://db-controller-production.up.railway.app/api/v1/chat';
 const MAX_MESSAGES = 50;
 
 let debbieMessages = [];
