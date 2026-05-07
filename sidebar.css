@@ -1,0 +1,103 @@
+/* ==================== SIDEBAR NAVIGATION ==================== */
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #cbd5e1;
+}
+
+.sidebar-item svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.sidebar-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    transform: translateX(4px);
+}
+
+.sidebar-item.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* ==================== PAGE SECTIONS ==================== */
+.page-section {
+    display: none;
+}
+
+.page-section.active {
+    display: block;
+}
+
+/* ==================== DATABASES PAGE STYLING ==================== */
+#databasesPage h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #1e293b;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+#databasesPage p {
+    color: #64748b;
+    font-size: 16px;
+    margin-bottom: 36px;
+}
+
+.database-list {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.database-list h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #667eea;
+}
+
+.database-item {
+    padding: 20px;
+    border-radius: 12px;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+}
+
+.database-item:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
+    transform: translateX(4px);
+}
+
+.database-item h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 8px;
+}
+
+.database-item p {
+    color: #64748b;
+    font-size: 14px;
+    margin: 0;
+}
