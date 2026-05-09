@@ -97,7 +97,7 @@ function updateLinksWithLanguage() {
 
     createOrgLinks.forEach(link => {
         if (link) {
-            link.href = `/home-organization?lang=${currentLang}`;
+            link.href = `/db-controller-front/home-organization/organization.html?lang=${currentLang}`;
         }
     });
 }
