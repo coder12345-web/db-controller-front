@@ -105,7 +105,7 @@ function clearTokensAndLogout(message = 'Session expired. Please login again.') 
     refreshPromise = null;
 
     // Redirect immediately
-    window.location.href = '/login/';  // ✅ NEW
+    window.location.href = '/login';  // ✅ NEW
 }
 
 // ==================== REFRESH ACCESS TOKEN ====================
@@ -353,13 +353,13 @@ function checkAuthentication() {
 
     // If on login page and has token, redirect to main
     if (currentPage.includes('login') && token) {
-        window.location.href = '/main/';  // ✅ NEW
+        window.location.href = '/main';  // ✅ NEW
         return false;
     }
 
     // If not on login page and no token, redirect to login
     if (!currentPage.includes('login') && !token) {
-        window.location.href = '/login/';  // ✅ NEW
+        window.location.href = '/login';  // ✅ NEW
         return false;
     }
 

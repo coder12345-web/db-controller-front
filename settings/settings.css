@@ -250,12 +250,12 @@
 }
 
 /* ==================== PASSWORD MODAL STEPS ==================== */
-.password-step {
-    display: none;
+.password-modal-step {
+    display: none !important;
 }
 
-.password-step.active {
-    display: block;
+.password-modal-step.active {
+    display: block !important;
     animation: fadeIn 0.3s ease;
 }
 

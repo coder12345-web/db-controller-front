@@ -86,7 +86,7 @@
         <div id="mainPage" class="page-section active">
             <h1>Databases</h1>
             <p>Manage your database connections</p>
-            <div id="cardsContainer" class="cards-grid"></div>
+            <div id="mainPageContainer"></div>
         </div>
 
         <!-- Databases Page -->
@@ -736,15 +736,25 @@
     </main>
 </div>
 
-<!-- Database Modal (for Main page) -->
-<div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-        <button class="modal-close" id="modalClose">&times;</button>
 
-        <div class="modal-left" id="modalLeft"></div>
-        <div class="modal-right">
-            <h3>Roles</h3>
-            <div id="modalRoles"></div>
+<!-- Role Details Modal -->
+<div class="role-modal-overlay" id="roleModalOverlay" onclick="handleRoleModalOverlayClick(event)">
+    <div class="role-modal">
+        <div class="role-modal-header">
+            <h2 class="role-modal-title" id="roleModalHeaderTitle"><!-- Filled by JS --></h2>
+            <button class="role-modal-close" onclick="closeRoleModal()">&times;</button>
+        </div>
+
+        <div class="role-modal-body">
+            <div class="role-modal-field">
+                <label class="role-modal-label" id="roleNameLabel"><!-- Filled by JS --></label>
+                <div class="role-modal-value" id="roleModalName"><!-- Filled by JS --></div>
+            </div>
+
+            <div class="role-modal-field">
+                <label class="role-modal-label" id="roleDescLabel"><!-- Filled by JS --></label>
+                <div class="role-modal-value role-modal-description" id="roleModalDescription"><!-- Filled by JS --></div>
+            </div>
         </div>
     </div>
 </div>
@@ -786,60 +796,47 @@
                 </div>
             </div>
 
-            <!-- Step 2: Enter Credentials -->
+            <!-- Step 2: Select Roles -->
             <div class="add-member-step" id="addMemberStep2">
                 <div class="selected-user-display">
                     <h3>Selected User</h3>
                     <div class="selected-user-name" id="selectedUserName"></div>
                 </div>
 
-                <div class="credentials-form">
+                <!-- Roles Section -->
+                <div class="roles-section">
+                    <h3>Select Database Roles</h3>
+
                     <div class="form-group">
-                        <label for="dbUsernameInput">Database Username *</label>
-                        <input
-                                type="text"
-                                id="dbUsernameInput"
-                                placeholder="Enter database username"
-                                required
-                        >
+                        <div class="roles-section-header">
+                            <label>Available Roles</label>
+                            <button class="expand-roles-btn" onclick="openRolesExpandModal()" title="View all roles">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <polyline points="9 21 3 21 3 15"></polyline>
+                                    <line x1="21" y1="3" x2="14" y2="10"></line>
+                                    <line x1="3" y1="21" x2="10" y2="14"></line>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="dbPasswordInput">Database Password *</label>
-                        <input
-                                type="password"
-                                id="dbPasswordInput"
-                                placeholder="Enter database password"
-                                required
-                        >
+                        <label>Selected Roles</label>
+                        <div class="selected-roles" id="selectedRolesList">
+                            <div class="empty-roles-message">No roles selected</div>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="roles-section">
-                        <h3>Select Database Roles</h3>
-
-                        <!-- CHANGED: Added expand button next to Available Roles -->
-                        <div class="form-group">
-                            <div class="roles-section-header">
-                                <label>Available Roles</label>
-                                <button class="expand-roles-btn" onclick="openRolesExpandModal()"
-                                        title="View all roles">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <polyline points="15 3 21 3 21 9"></polyline>
-                                        <polyline points="9 21 3 21 3 15"></polyline>
-                                        <line x1="21" y1="3" x2="14" y2="10"></line>
-                                        <line x1="3" y1="21" x2="10" y2="14"></line>
-                                    </svg>
-                                </button>
-                            </div>
-                            <!-- REMOVED: availableRolesList div - roles now show in expand modal -->
-                        </div>
-
-                        <div class="form-group">
-                            <label>Selected Roles</label>
-                            <div class="selected-roles" id="selectedRolesList">
-                                <div class="empty-roles-message">No roles selected</div>
-                            </div>
-                        </div>
+                <!-- Additional Databases Section -->
+                <div class="additional-databases-section">
+                    <h3>Create in Additional Databases (Optional)</h3>
+                    <p class="additional-databases-hint">
+                        Select databases where this user will also be created
+                    </p>
+                    <div id="additionalDatabasesList" class="additional-databases-list">
+                        <!-- Checkboxes will be rendered here by JavaScript -->
                     </div>
                 </div>
             </div>
@@ -922,6 +919,51 @@
             </button>
             <button class="modal-btn modal-btn-primary" id="editMemberSubmitBtn" onclick="submitEditMember()">
                 Save Changes
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ATTACH USER MODAL -->
+<!-- Add this modal HTML to your main HTML file, after the other database modals -->
+
+<div id="attachUserModalOverlay" class="attach-user-modal-overlay" onclick="handleAttachUserOverlayClick(event)">
+    <div class="attach-user-modal-container">
+        <div class="attach-modal-header">
+            <h2 id="attachUserModalTitle">Attach User to Database Member</h2>
+            <button class="attach-modal-close-btn" onclick="closeAttachUserModal()">×</button>
+        </div>
+
+        <div class="attach-modal-body">
+            <div class="attach-modal-search-group">
+                <label for="attachUserSearchInput">Search for a user</label>
+                <input
+                        type="text"
+                        id="attachUserSearchInput"
+                        class="attach-modal-search-input"
+                        placeholder="Search by name, username, or email..."
+                        oninput="handleAttachUserSearch(event)"
+                >
+            </div>
+
+            <div class="attach-user-list-container">
+                <div id="attachUserList" class="attach-user-list">
+                    <!-- User items will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="attach-modal-footer">
+            <button class="attach-modal-btn attach-modal-cancel-btn" onclick="closeAttachUserModal()">
+                Cancel
+            </button>
+            <button
+                    id="attachUserSubmitBtn"
+                    class="attach-modal-btn attach-modal-submit-btn"
+                    onclick="submitAttachUser()"
+                    disabled
+            >
+                Attach User
             </button>
         </div>
     </div>
@@ -1384,6 +1426,35 @@
         </div>
     </div>
 </div>
+<!-- Password Change Modal (NO current password) -->
+<div class="password-modal-overlay" id="passwordChangeModalOverlay" onclick="handlePasswordModalOverlayClick(event)">
+    <div class="password-modal">
+        <div class="password-modal-header">
+            <h2 class="password-modal-title" id="passwordModalTitle">Change Password</h2>
+            <button class="password-modal-close" onclick="closePasswordChangeModal()">&times;</button>
+        </div>
+
+        <div class="password-modal-body">
+            <div class="password-input-group">
+                <label class="password-input-label" id="newPasswordLabel">New password</label>
+                <div class="password-input-wrapper">
+                    <input type="password" id="newPasswordInput" class="password-input" placeholder="Enter new password">
+                    <button type="button" class="password-toggle" onclick="togglePasswordVisibility('newPasswordInput', 'toggleNewPassword')" id="toggleNewPassword">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="password-modal-actions">
+            <button class="modal-btn modal-btn-secondary" id="cancelPasswordBtn" onclick="closePasswordChangeModal()">Cancel</button>
+            <button class="modal-btn modal-btn-primary" id="saveNewPasswordBtn" onclick="saveNewPassword()">Save</button>
+        </div>
+    </div>
+</div>
 
 <script src="../scripts/token-refresh.js"></script>        <!-- Load FIRST -->
 <script src="../scripts/i18n.js"></script>
@@ -1397,5 +1468,40 @@
 <script src="../settings/settings.js"></script>
 <script src="../chat-debbie/chat-debbie.js"></script>
 <script src="../settings/settings-sync.js"></script>
+<script>
+    // Populate modal labels on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        // Password modal labels
+        if (window.t) {
+            function updatePasswordModalLabels() {
+                // If modal isn't in DOM, do nothing
+                if (!document.getElementById('passwordChangeModalOverlay')) return;
+
+                const t = window.t;
+
+                const setText = (id, text) => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = text;
+                };
+
+                const setPlaceholder = (id, text) => {
+                    const el = document.getElementById(id);
+                    if (el) el.placeholder = text;
+                };
+
+                setText('passwordModalTitle', t('main.passwordChange.title'));
+                setText('newPasswordLabel', t('main.passwordChange.newPassword'));
+                setPlaceholder('newPasswordInput', t('main.passwordChange.newPasswordPlaceholder'));
+                setText('saveNewPasswordBtn', t('main.passwordChange.save'));
+                setText('cancelPasswordBtn', t('main.passwordChange.cancel')); // optional
+            }
+
+            updatePasswordModalLabels();
+
+            // Update on language change
+            window.addEventListener('languageChanged', updatePasswordModalLabels);
+        }
+    });
+</script>
 </body>
 </html>

@@ -356,7 +356,7 @@ function goBackToStep1() {
 // ==================== COPY ORGANIZATION ID ====================
 
 document.getElementById('goToLoginBtn').addEventListener('click', () => {
-    window.location.href = '/login/';
+    window.location.href = '/login';
 });
 
 // ==================== INITIALIZE ====================

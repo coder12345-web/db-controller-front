@@ -32,13 +32,8 @@ function updateAddMemberModalTranslations() {
         const dbUsernameInput = document.getElementById('dbUsernameInput');
         if (dbUsernameInput) dbUsernameInput.placeholder = window.t('databases.addMember.dbUsernamePlaceholder');
 
-        const dbPasswordLabel = step2.querySelectorAll('label')[1];
-        if (dbPasswordLabel) {
-            dbPasswordLabel.innerHTML = `${window.t('databases.addMember.dbPassword')} <span class="required">*</span>`;
-        }
-
-        const dbPasswordInput = document.getElementById('dbPasswordInput');
-        if (dbPasswordInput) dbPasswordInput.placeholder = window.t('databases.addMember.dbPasswordPlaceholder');
+        const autoPasswordHint = step2.querySelector('.auto-password-hint');
+        if (autoPasswordHint) autoPasswordHint.textContent = window.t('databases.addMember.autoPassword');
 
         const rolesTitle = step2.querySelector('.roles-section h3');
         if (rolesTitle) rolesTitle.textContent = window.t('databases.addMember.selectRoles');
@@ -48,6 +43,12 @@ function updateAddMemberModalTranslations() {
 
         const selectedRolesLabels = step2.querySelectorAll('.form-group label');
         if (selectedRolesLabels[1]) selectedRolesLabels[1].textContent = window.t('databases.addMember.selectedRoles');
+
+        const additionalDbTitle = step2.querySelector('.additional-databases-section h3');
+        if (additionalDbTitle) additionalDbTitle.textContent = window.t('databases.addMember.additionalDatabases');
+
+        const additionalDbHint = step2.querySelector('.additional-databases-hint');
+        if (additionalDbHint) additionalDbHint.textContent = window.t('databases.addMember.selectDatabases');
     }
 
     // Buttons
@@ -205,7 +206,15 @@ function createDatabaseCard(db) {
             memberElement.classList.add('member-username');
 
             memberElement.innerHTML = `
-                <span class="member-name-text">${member.authUserDto ? member.authUserDto.username : window.t('databases.memberModal.unknownUser')}</span>
+                ${!member.authUserDto ? `
+                <button class="attach-user-btn" title="${window.t('databases.card.attachUser')}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </button>
+                ` : ''}
+                <span class="member-name-text">${member.username ? member.username : window.t('databases.memberModal.unknownUser')}</span>
                 <div class="member-actions">
                     <button class="member-action-btn member-edit-btn" title="${window.t('databases.card.editMember')}">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -225,8 +234,17 @@ function createDatabaseCard(db) {
             const nameText = memberElement.querySelector('.member-name-text');
             nameText.addEventListener('click', (e) => {
                 e.stopPropagation();
-                openMemberModal(member);
+                openMemberModal(member, db);
             });
+
+            // Attach user button (only when authUserDto is null)
+            if (!member.authUserDto) {
+                const attachBtn = memberElement.querySelector('.attach-user-btn');
+                attachBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openAttachUserModal(member, db);
+                });
+            }
 
             const editBtn = memberElement.querySelector('.member-edit-btn');
             editBtn.addEventListener('click', (e) => {
@@ -250,7 +268,12 @@ function createDatabaseCard(db) {
 }
 
 // Open member details modal
-function openMemberModal(member) {
+function openMemberModal(member, database = null) {
+    // Store database for attach modal if provided
+    if (database) {
+        window.currentDatabaseForAttach = database;
+    }
+
     const authUser = member.authUserDto || {};
 
     const leftContent = `
@@ -294,6 +317,33 @@ function openMemberModal(member) {
             <div class="auth-info-label">${window.t('databases.memberModal.role')}</div>
             <div class="auth-info-value">${authUser.role ? authUser.role.name : window.t('databases.memberModal.na')}</div>
         </div>
+        
+        ${!member.authUserDto ? `
+        <div class="attach-user-section-left">
+            <p class="attach-user-hint-left">${window.t('databases.attachUser.hint')}</p>
+            <button class="attach-user-action-btn" onclick="openAttachUserModalFromDetail()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="8.5" cy="7" r="4"></circle>
+                    <line x1="20" y1="8" x2="20" y2="14"></line>
+                    <line x1="23" y1="11" x2="17" y2="11"></line>
+                </svg>
+                ${window.t('databases.attachUser.attachButton')}
+            </button>
+        </div>
+        ` : `
+        <div class="attach-user-section-left">
+            <p class="attach-user-hint-left">${window.t('databases.attachUser.replaceHint')}</p>
+            <button class="attach-user-action-btn replace-mode" onclick="openAttachUserModalFromDetail(true)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="1 4 1 10 7 10"></polyline>
+                    <polyline points="23 20 23 14 17 14"></polyline>
+                    <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+                </svg>
+                ${window.t('databases.attachUser.replaceButton')}
+            </button>
+        </div>
+        `}
     `;
 
     const rolesHtml = member.roles && member.roles.length > 0
@@ -311,7 +361,7 @@ function openMemberModal(member) {
         <div class="db-user-info">
             <div class="db-username-display">
                 <div class="db-username-label">${window.t('databases.memberModal.databaseUsername')}</div>
-                <div class="db-username-value">${member.dbUsername || window.t('databases.memberModal.na')}</div>
+                <div class="db-username-value">${member.username || window.t('databases.memberModal.na')}</div>
             </div>
         </div>
         
@@ -325,11 +375,16 @@ function openMemberModal(member) {
 
     document.getElementById("memberModalLeft").innerHTML = leftContent;
     document.getElementById("memberModalRight").innerHTML = rightContent;
+
+    // Store current member for attach modal callback
+    window.currentMemberForAttach = member;
+
     document.getElementById("memberModalOverlay").style.display = "flex";
 }
 
 function closeMemberModal() {
     document.getElementById("memberModalOverlay").style.display = "none";
+    window.currentMemberForAttach = null;
 }
 
 function handleMemberModalOverlayClick(e) {
@@ -426,11 +481,14 @@ let selectedUser = null;
 let searchTimeout = null;
 let availableRoles = [];
 let selectedRoles = [];
+let selectedAdditionalDatabases = []; // NEW: Track selected additional databases
+let allDatabases = []; // NEW: Store all databases for selection
 
 function openAddMemberModal(database) {
     currentDatabase = database;
     selectedUser = null;
     selectedRoles = [];
+    selectedAdditionalDatabases = []; // NEW: Reset selected databases
 
     document.getElementById('addMemberModalTitle').textContent = `Add Member to ${database.name}`;
     document.getElementById('addMemberModalOverlay').style.display = 'flex';
@@ -442,15 +500,15 @@ function openAddMemberModal(database) {
 
 function closeAddMemberModal() {
     document.getElementById('addMemberModalOverlay').style.display = 'none';
-    closeRolesExpandModal(); // Close roles modal when main modal closes
+    closeRolesExpandModal();
 
     currentDatabase = null;
     selectedUser = null;
     selectedRoles = [];
+    selectedAdditionalDatabases = [];
 
     document.getElementById('userSearchInput').value = '';
-    document.getElementById('dbUsernameInput').value = '';
-    document.getElementById('dbPasswordInput').value = '';
+    // REMOVED: document.getElementById('dbUsernameInput').value = '';
 
     const submitBtn = document.getElementById('addMemberSubmitBtn');
     submitBtn.disabled = false;
@@ -484,8 +542,16 @@ async function searchUsers(query) {
     userList.innerHTML = '<div class="user-loading">Searching...</div>';
 
     try {
+        // Check if we have a current database selected
+        if (!currentDatabase || !currentDatabase.id) {
+            console.error('No database selected for user search');
+            userList.innerHTML = '<div class="user-empty">Database not selected</div>';
+            return;
+        }
+
         const searchParam = query.trim() || '';
-        const users = await apiCall(`/user?search=${encodeURIComponent(searchParam)}`);
+        // NEW: Include database ID in the endpoint
+        const users = await apiCall(`/user/search/${currentDatabase.id}?search=${encodeURIComponent(searchParam)}`);
         renderUserList(users);
     } catch (error) {
         console.error('Error searching users:', error);
@@ -539,8 +605,104 @@ async function goToNextStep() {
     // Load roles for the specific database
     await loadAvailableRoles();
 
+    // NEW: Load all databases for additional database selection
+    await loadAllDatabasesForSelection();
+
     renderSelectedRoles();
+    renderAdditionalDatabases(); // NEW: Render database checkboxes
     showAddMemberStep(2);
+}
+
+async function loadAllDatabasesForSelection() {
+    try {
+        allDatabases = await fetchDatabases();
+
+        // Filter out current database
+        allDatabases = allDatabases.filter(db => db.id !== currentDatabase.id);
+
+        // ✅ Also filter out databases where selectedUser is already a member
+        if (selectedUser) {
+            allDatabases = allDatabases.filter(db => {
+                if (!db.members || db.members.length === 0) return true;
+                return !db.members.some(member =>
+                    member.authUserDto && member.authUserDto.id === selectedUser.id
+                );
+            });
+        }
+
+    } catch (error) {
+        console.error('Error loading databases:', error);
+        allDatabases = [];
+    }
+}
+
+function renderAdditionalDatabases() {
+    const container = document.getElementById('additionalDatabasesList');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    if (!allDatabases || allDatabases.length === 0) {
+        container.innerHTML = `
+            <div class="empty-databases-message">
+                ${selectedUser ?
+            window.t('databases.addMember.userHasAccessToAll') || 'This user already has access to all other databases'
+            : window.t('databases.addMember.noDatabases')}
+            </div>
+        `;
+        return;
+    }
+
+    // ✅ Use fully inline styles — no class dependency
+    const noteDiv = document.createElement('div');
+    noteDiv.style.cssText = `
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 10px 12px;
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        font-size: 12px;
+        color: #1e40af;
+        line-height: 1.4;
+        grid-column: 1 / -1;
+    `;
+    noteDiv.innerHTML = `
+        <svg style="width:14px;height:14px;flex-shrink:0;margin-top:1px;" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <span>${window.t('databases.addMember.oneMembershipNote') || 'Only showing databases where this user does not have membership yet.'}</span>
+    `;
+    container.appendChild(noteDiv);
+
+    // Render database checkboxes (unchanged)
+    allDatabases.forEach(db => {
+        const dbCheckbox = document.createElement('label');
+        dbCheckbox.classList.add('database-checkbox-item');
+
+        const isChecked = selectedAdditionalDatabases.includes(db.id);
+        dbCheckbox.innerHTML = `
+            <input type="checkbox" value="${db.id}" ${isChecked ? 'checked' : ''}>
+            <span class="database-checkbox-label">${db.name}</span>
+        `;
+
+        const checkbox = dbCheckbox.querySelector('input');
+        checkbox.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                if (!selectedAdditionalDatabases.includes(db.id)) {
+                    selectedAdditionalDatabases.push(db.id);
+                }
+            } else {
+                selectedAdditionalDatabases = selectedAdditionalDatabases.filter(id => id !== db.id);
+            }
+        });
+
+        container.appendChild(dbCheckbox);
+    });
 }
 
 function goBackStep() {
@@ -548,20 +710,7 @@ function goBackStep() {
 }
 
 async function submitAddMember() {
-    const dbUsername = document.getElementById('dbUsernameInput').value.trim();
-    const dbPassword = document.getElementById('dbPasswordInput').value.trim();
-
-    if (!dbUsername || !dbPassword) {
-        showToast('Please fill in all required fields', 'error');
-        return;
-    }
-
-    // Validate database username - PostgreSQL doesn't allow special characters
-    const usernameRegex = /^[a-zA-Z0-9_]+$/;
-    if (!usernameRegex.test(dbUsername)) {
-        showToast('Database username can only contain letters, numbers, and underscores', 'error');
-        return;
-    }
+    // REMOVED: Database username validation
 
     const submitBtn = document.getElementById('addMemberSubmitBtn');
     submitBtn.disabled = true;
@@ -569,28 +718,32 @@ async function submitAddMember() {
 
     try {
         const payload = {
-            dbUsername: dbUsername,
-            dbPassword: dbPassword,
+            // REMOVED: dbUsername field
             databaseId: currentDatabase.id,
             authUserId: selectedUser.id,
-            roleIds: selectedRoles.map(role => role.id)
+            roles: selectedRoles.map(role => role.id)
         };
 
-        await apiCall('/databaseUser', {
-            method: 'POST',
-            body: JSON.stringify(payload)
-        });
-
-        const userName = selectedUser.name;
-        const dbName = currentDatabase.name;
+        // Determine which API endpoint to call
+        if (selectedAdditionalDatabases.length > 0) {
+            const queryParams = selectedAdditionalDatabases.map(id => `databases=${id}`).join('&');
+            await apiCall(`/databaseUser?${queryParams}`, {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            });
+        } else {
+            await apiCall('/databaseUser', {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            });
+        }
 
         closeAddMemberModal();
-        showToast(`${userName} has been added to ${dbName}`, 'success');
+        showToast('User successfully created', 'success');
         loadDatabases();
 
     } catch (error) {
         console.error('Error adding member:', error);
-        // Display the actual error message from backend
         const errorMsg = error.message || 'Could not add member. Please try again.';
         showToast(errorMsg, 'error');
         submitBtn.disabled = false;
@@ -828,6 +981,8 @@ async function submitEditMember() {
         showToast(`changes are successfully saved`, 'success');
         return;
     }
+    console.log("editSelectedRoles:", editSelectedRoles);
+    console.log("mapped role ids:", editSelectedRoles.map(r => r.id));
 
     const submitBtn = document.getElementById('editMemberSubmitBtn');
     submitBtn.disabled = true;
@@ -836,10 +991,9 @@ async function submitEditMember() {
     try {
         const payload = {
             dbUsername: memberToEdit.dbUsername,
-            dbPassword: memberToEdit.dbPassword,
             databaseId: memberToEdit.databaseId,
-            authUserId: memberToEdit.authUserDto.id,
-            roleIds: editSelectedRoles.map(role => role.id)
+            authUserId: memberToEdit.authUserDto ? memberToEdit.authUserDto.id : null,
+            roles: editSelectedRoles.map(role => role.id)
         };
 
         await apiCall(`/databaseUser/${memberToEdit.id}`, {
@@ -1028,7 +1182,221 @@ async function confirmDeleteMember() {
     }
 }
 
+// ==================== ATTACH USER MODAL ====================
 
+let memberToAttach = null;
+let databaseForAttach = null;
+let attachSearchTimeout = null;
+let selectedAttachUser = null;
+let isReplaceMode = false;
+
+function openAttachUserModal(member, database, replaceMode = false) {
+    memberToAttach = member;
+    databaseForAttach = database;
+    selectedAttachUser = null;
+    isReplaceMode = replaceMode;
+
+    const modalTitle = document.getElementById('attachUserModalTitle');
+    modalTitle.textContent = replaceMode
+        ? window.t('databases.attachUser.replaceTitle')
+        : window.t('databases.attachUser.title');
+
+    document.getElementById('attachUserModalOverlay').style.display = 'flex';
+
+    // Search all users initially
+    searchAttachUsers('');
+
+    updateAttachUserModalTranslations();
+}
+
+// Helper function to open attach modal from member detail modal
+function openAttachUserModalFromDetail(replaceMode = false) {
+    if (!window.currentMemberForAttach) return;
+
+    openAttachUserModal(window.currentMemberForAttach, window.currentDatabaseForAttach, replaceMode);
+}
+
+function closeAttachUserModal() {
+    document.getElementById('attachUserModalOverlay').style.display = 'none';
+
+    memberToAttach = null;
+    databaseForAttach = null;
+    selectedAttachUser = null;
+    isReplaceMode = false;
+
+    document.getElementById('attachUserSearchInput').value = '';
+
+    const submitBtn = document.getElementById('attachUserSubmitBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = window.t('databases.attachUser.attachButton');
+}
+
+async function searchAttachUsers(query) {
+    const userList = document.getElementById('attachUserList');
+
+    // ✅ Replace class-based spinner with simple text to avoid CSS blowout
+    userList.innerHTML = '<div style="padding: 16px; text-align: center; color: #64748b; font-size: 14px;">Searching...</div>';
+
+    try {
+        if (!databaseForAttach || !databaseForAttach.id) {
+            userList.innerHTML = '<div class="user-empty">Database not selected</div>';
+            return;
+        }
+
+        const searchParam = query.trim() || '';
+        const users = await apiCall(`/user/search/${databaseForAttach.id}?search=${encodeURIComponent(searchParam)}`);
+        renderAttachUserList(users);
+    } catch (error) {
+        console.error('Error searching users:', error);
+        userList.innerHTML = '<div class="user-empty">Failed to load users</div>';
+    }
+}
+
+function handleAttachUserSearch(event) {
+    const query = event.target.value;
+    clearTimeout(attachSearchTimeout);
+    attachSearchTimeout = setTimeout(() => searchAttachUsers(query), 300);
+}
+
+function renderAttachUserList(users) {
+    const userList = document.getElementById('attachUserList');
+
+
+    const note = `
+        <div style="
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 10px 12px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            margin: 8px;
+            font-size: 12px;
+            color: #1e40af;
+            line-height: 1.4;
+        ">
+            <svg style="width:14px;height:14px;flex-shrink:0;margin-top:1px;" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <span>${window.t('databases.attachUser.filterNote') ||
+    'Only users without an existing membership in this database are shown.'}</span>
+        </div>
+    `;
+
+    if (!users || users.length === 0) {
+        userList.innerHTML = note + `
+            <div style="padding: 20px; text-align: center; color: #64748b; font-size: 14px;">
+                No eligible users found
+            </div>`;
+        return;
+    }
+
+    userList.innerHTML = note;
+    users.forEach(user => {
+        const userItem = document.createElement('div');
+        userItem.classList.add('attach-user-item');
+        if (selectedAttachUser && selectedAttachUser.id === user.id) {
+            userItem.classList.add('selected');
+        }
+
+        userItem.innerHTML = `
+            <div class="attach-user-item-info">
+                <div class="attach-user-item-name">${user.name}</div>
+                <div class="attach-user-item-username">@${user.username}</div>
+            </div>
+            <div class="attach-user-item-email">${user.email}</div>
+        `;
+
+        userItem.addEventListener('click', () => selectAttachUser(user));
+        userList.appendChild(userItem);
+    });
+}
+
+function selectAttachUser(user) {
+    selectedAttachUser = user;
+    document.querySelectorAll('.attach-user-item').forEach(item => item.classList.remove('selected'));
+    event.target.closest('.attach-user-item').classList.add('selected');
+    document.getElementById('attachUserSubmitBtn').disabled = false;
+}
+
+async function submitAttachUser() {
+    if (!selectedAttachUser || !memberToAttach) {
+        showToast('Please select a user to attach', 'error');
+        return;
+    }
+
+    const submitBtn = document.getElementById('attachUserSubmitBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = isReplaceMode ? 'Replacing...' : 'Attaching...';
+
+    try {
+        // FIXED: Using the correct API endpoint format
+        const endpoint = `/databaseUser/${memberToAttach.id}/attach/${selectedAttachUser.id}`;
+
+        await apiCall(endpoint, {
+            method: 'POST'
+        });
+
+        const userName = selectedAttachUser.name;
+        const action = isReplaceMode ? 'replaced with' : 'attached to';
+
+        closeAttachUserModal();
+
+        // Close member detail modal if it's open
+        if (document.getElementById('memberModalOverlay').style.display === 'flex') {
+            closeMemberModal();
+        }
+
+        showToast(`${userName} has been ${action} the database user`, 'success');
+        loadDatabases();
+
+    } catch (error) {
+        console.error('Error attaching user:', error);
+        const errorMsg = error.message || 'Could not attach user. Please try again.';
+        showToast(errorMsg, 'error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = isReplaceMode
+            ? window.t('databases.attachUser.replaceButton')
+            : window.t('databases.attachUser.attachButton');
+    }
+}
+
+function handleAttachUserOverlayClick(e) {
+    if (e.target.id === 'attachUserModalOverlay') {
+        closeAttachUserModal();
+    }
+}
+
+function updateAttachUserModalTranslations() {
+    const modal = document.getElementById('attachUserModalOverlay');
+    if (!modal || modal.style.display !== 'flex') return;
+
+    const title = document.getElementById('attachUserModalTitle');
+    if (title) {
+        title.textContent = isReplaceMode
+            ? window.t('databases.attachUser.replaceTitle')
+            : window.t('databases.attachUser.title');
+    }
+
+    const searchLabel = modal.querySelector('label[for="attachUserSearchInput"]');
+    if (searchLabel) searchLabel.textContent = window.t('databases.attachUser.searchLabel');
+
+    const searchInput = document.getElementById('attachUserSearchInput');
+    if (searchInput) searchInput.placeholder = window.t('databases.attachUser.searchPlaceholder');
+
+    const cancelBtn = modal.querySelector('.attach-modal-cancel-btn');
+    if (cancelBtn) cancelBtn.textContent = window.t('databases.attachUser.cancel');
+
+    const submitBtn = document.getElementById('attachUserSubmitBtn');
+    if (submitBtn && !submitBtn.disabled) {
+        submitBtn.textContent = isReplaceMode
+            ? window.t('databases.attachUser.replaceButton')
+            : window.t('databases.attachUser.attachButton');
+    }
+}
 
 // ==================== INITIALIZE ====================
 
@@ -1053,5 +1421,8 @@ window.addEventListener('languageChanged', () => {
     }
     if (document.getElementById('deleteConfirmOverlay').style.display === 'flex') {
         updateDeleteMemberModalTranslations();
+    }
+    if (document.getElementById('attachUserModalOverlay').style.display === 'flex') {
+        updateAttachUserModalTranslations();
     }
 });
