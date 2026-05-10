@@ -181,7 +181,7 @@ async function login(event) {
         // Show success toast
         showToast('Login successful! Redirecting...', 'success', 1500);
 
-        window.location.href = '/main/';
+        window.location.href = '/main';
 
     } catch (error) {
         console.error('Login error:', error);
