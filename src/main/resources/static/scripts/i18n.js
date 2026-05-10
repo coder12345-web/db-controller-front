@@ -691,6 +691,43 @@ const translations = {
                 cancel: "Cancel",
                 confirm: "Logout"
             }
+        },
+        login: {
+            usernameLabel: "Username",
+            passwordLabel: "Password",
+            signInBtn: "Sign In",
+            forgotPassword: "Forgot password?"
+        },
+        forgotPassword: {
+            subtitle: "Enter your email and we'll send you a link to reset your password.",
+            emailLabel: "Email Address",
+            emailPlaceholder: "your@email.com",
+            submitBtn: "Send Reset Link",
+            sending: "Sending...",
+            backToLogin: "← Back to Login",
+            successTitle: "Check your inbox",
+            successMessage: "If an account with that email exists, we've sent a password reset link. It expires in 15 minutes."
+        },
+        resetPassword: {
+            subtitle: "Enter your new password below.",
+            newPasswordLabel: "New Password",
+            newPasswordPlaceholder: "Min. 8 characters",
+            confirmPasswordLabel: "Confirm Password",
+            confirmPasswordPlaceholder: "Re-enter your password",
+            lengthHint: "At least 8 characters",
+            matchHint: "Passwords must match",
+            lengthValid: "✓ At least 8 characters",
+            matchValid: "✓ Passwords match",
+            matchInvalid: "Passwords do not match",
+            submitBtn: "Reset Password",
+            resetting: "Resetting...",
+            backToLogin: "← Back to Login",
+            successTitle: "Password Reset!",
+            successMessage: "Your password has been updated. You can now log in with your new password.",
+            goToLogin: "Go to Login",
+            errorTitle: "Link Expired",
+            errorMessage: "This reset link is invalid or has expired. Please request a new one.",
+            requestNewLink: "Request New Link"
         }
     },
 
@@ -1358,6 +1395,43 @@ const translations = {
                 cancel: "Отмена",
                 confirm: "Выйти"
             }
+        },
+        login: {
+            usernameLabel: "Имя пользователя",
+            passwordLabel: "Пароль",
+            signInBtn: "Войти",
+            forgotPassword: "Забыли пароль?"
+        },
+        forgotPassword: {
+            subtitle: "Введите email и мы отправим вам ссылку для сброса пароля.",
+            emailLabel: "Адрес электронной почты",
+            emailPlaceholder: "your@email.com",
+            submitBtn: "Отправить ссылку",
+            sending: "Отправка...",
+            backToLogin: "← Назад ко входу",
+            successTitle: "Проверьте почту",
+            successMessage: "Если аккаунт с таким email существует, мы отправили ссылку для сброса пароля. Она действительна 15 минут."
+        },
+        resetPassword: {
+            subtitle: "Введите новый пароль ниже.",
+            newPasswordLabel: "Новый пароль",
+            newPasswordPlaceholder: "Мин. 8 символов",
+            confirmPasswordLabel: "Подтвердите пароль",
+            confirmPasswordPlaceholder: "Введите пароль ещё раз",
+            lengthHint: "Минимум 8 символов",
+            matchHint: "Пароли должны совпадать",
+            lengthValid: "✓ Минимум 8 символов",
+            matchValid: "✓ Пароли совпадают",
+            matchInvalid: "Пароли не совпадают",
+            submitBtn: "Сбросить пароль",
+            resetting: "Сброс...",
+            backToLogin: "← Назад ко входу",
+            successTitle: "Пароль изменён!",
+            successMessage: "Ваш пароль успешно обновлён. Теперь вы можете войти с новым паролем.",
+            goToLogin: "Перейти ко входу",
+            errorTitle: "Ссылка недействительна",
+            errorMessage: "Эта ссылка для сброса недействительна или истекла. Запросите новую.",
+            requestNewLink: "Запросить новую ссылку"
         }
     },
 
@@ -2030,6 +2104,43 @@ const translations = {
                 cancel: "Bekor qilish",
                 confirm: "Chiqish"
             }
+        },
+        login: {
+            usernameLabel: "Foydalanuvchi nomi",
+            passwordLabel: "Parol",
+            signInBtn: "Kirish",
+            forgotPassword: "Parolni unutdingizmi?"
+        },
+        forgotPassword: {
+            subtitle: "Emailingizni kiriting, biz sizga parolni tiklash havolasini yuboramiz.",
+            emailLabel: "Elektron pochta manzili",
+            emailPlaceholder: "your@email.com",
+            submitBtn: "Havola yuborish",
+            sending: "Yuborilmoqda...",
+            backToLogin: "← Kirishga qaytish",
+            successTitle: "Pochta qutingizni tekshiring",
+            successMessage: "Agar bu email bilan hisob mavjud bo'lsa, parolni tiklash havolasi yuborildi. U 15 daqiqa amal qiladi."
+        },
+        resetPassword: {
+            subtitle: "Quyida yangi parolni kiriting.",
+            newPasswordLabel: "Yangi parol",
+            newPasswordPlaceholder: "Min. 8 ta belgi",
+            confirmPasswordLabel: "Parolni tasdiqlang",
+            confirmPasswordPlaceholder: "Parolni qayta kiriting",
+            lengthHint: "Kamida 8 ta belgi",
+            matchHint: "Parollar mos kelishi kerak",
+            lengthValid: "✓ Kamida 8 ta belgi",
+            matchValid: "✓ Parollar mos keladi",
+            matchInvalid: "Parollar mos kelmaydi",
+            submitBtn: "Parolni tiklash",
+            resetting: "Tiklanmoqda...",
+            backToLogin: "← Kirishga qaytish",
+            successTitle: "Parol tiklandi!",
+            successMessage: "Parolingiz muvaffaqiyatli yangilandi. Endi yangi parol bilan kirishingiz mumkin.",
+            goToLogin: "Kirishga o'tish",
+            errorTitle: "Havola eskirgan",
+            errorMessage: "Bu tiklash havolasi yaroqsiz yoki muddati o'tgan. Yangi havola so'rang.",
+            requestNewLink: "Yangi havola so'rash"
         }
     }
 };

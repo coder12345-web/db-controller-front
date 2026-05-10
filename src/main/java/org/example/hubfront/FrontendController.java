@@ -30,4 +30,14 @@ public class FrontendController {
     public String admin() {
         return "forward:/admin/admin.html";
     }
+
+    @GetMapping("/login/forgot-password")
+    public String forgotPassword() {
+        return "forward:/login/forgot-password.html";
+    }
+
+    @GetMapping("/login/reset-password")
+    public String resetPassword() {
+        return "forward:/login/reset-password.html";
+    }
 }
