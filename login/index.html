@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DB-Controller - Login</title>
-    <link rel="stylesheet" href="/login/login.css">
+    <link rel="stylesheet" href="../login/login.css">
     <style>
         .forgot-password-link { color: #667eea; font-size: 14px; text-decoration: none; transition: color 0.2s; }
         .forgot-password-link:hover { color: #764ba2; text-decoration: underline; }
@@ -61,16 +61,16 @@
             </div>
             <button type="submit" class="login-btn" id="signInBtn">Sign In</button>
             <div style="text-align:center; margin-top:16px;">
-                <a href="/login/forgot-password" class="forgot-password-link" id="forgotPasswordLink">Forgot password?</a>
+                <a href="../login/forgot-password" class="forgot-password-link" id="forgotPasswordLink">Forgot password?</a>
             </div>
             <div class="error-message" id="errorMessage"></div>
         </form>
     </div>
 </div>
 
-<script src="/scripts/i18n.js"></script>
-<script src="/scripts/token-refresh.js"></script>
-<script src="/login/login.js"></script>
+<script src="../scripts/i18n.js"></script>
+<script src="../scripts/token-refresh.js"></script>
+<script src="../login/login.js"></script>
 <script>
     const langMeta = { en: { flag: '🇺🇸', label: 'EN' }, ru: { flag: '🇷🇺', label: 'RU' }, uz: { flag: '🇺🇿', label: 'UZ' } };
 
