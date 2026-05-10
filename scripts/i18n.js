@@ -85,54 +85,6 @@ const translations = {
             toast: {
                 passwordCopied: "Password copied to clipboard",
                 usernameCopied: "Username copied to clipboard"
-            },
-
-            credentials: {
-                sharedPasswordTitle: "Shared Database Password",
-                sharedPasswordSubtitle: "This password is used across all your database connections",
-                password: "Password",
-                showPassword: "Show Password",
-                hidePassword: "Hide Password",
-                editPassword: "Edit Password",
-                passwordHidden: "••••••••"
-            },
-
-            availableDatabases: {
-                title: "Your Databases",
-                username: "Username",
-                roles: "Roles",
-                noDatabases: "No databases available",
-                noRoles: "No roles assigned",
-                viewRole: "Click to view description"
-            },
-
-            passwordChange: {
-                title: "Change Password",
-                currentPassword: "Current Password",
-                currentPasswordPlaceholder: "Enter your current password",
-                newPassword: "New Password",
-                newPasswordPlaceholder: "Enter new password (min. 6 characters)",
-                verify: "Verify",
-                verifying: "Verifying...",
-                save: "Save Password",
-                saving: "Saving...",
-                cancel: "Cancel",
-                verified: "Password verified successfully!",
-                incorrectPassword: "Incorrect password. Please try again.",
-                enterCurrent: "Please enter your current password",
-                enterNew: "Please enter a new password",
-                minLength: "Password must be at least 6 characters",
-                updateSuccess: "Password updated successfully",
-                updateError: "Failed to update password",
-                verificationError: "Password verification failed"
-            },
-
-            roleModal: {
-                title: "Role Details",
-                roleName: "Role Name",
-                description: "Description",
-                noDescription: "No description available",
-                close: "Close"
             }
         },
 
@@ -150,8 +102,7 @@ const translations = {
                 addMember: "Add Member",
                 noMembers: "No members",
                 editMember: "Edit member",
-                deleteMember: "Delete member",
-                attachUser: "Attach User"
+                deleteMember: "Delete member"
             },
 
             // Member modal
@@ -183,10 +134,6 @@ const translations = {
                 dbUsernamePlaceholder: "Enter database username",
                 dbPassword: "Database Password",
                 dbPasswordPlaceholder: "Enter database password",
-                autoPassword: "A strong password will be generated automatically",
-                additionalDatabases: "Create in Additional Databases (Optional)",
-                selectDatabases: "Select databases where this user will also be created",
-                noDatabases: "No other databases available",
                 selectRoles: "Select Database Roles",
                 availableRoles: "Available Roles",
                 selectedRoles: "Selected Roles",
@@ -200,9 +147,7 @@ const translations = {
                 fillAllFields: "Please fill in all required fields",
                 invalidUsername: "Database username can only contain letters, numbers, and underscores",
                 memberAdded: "has been added to",
-                addFailed: "Could not add member. Please try again.",
-                userHasAccessToAll: "This user already has access to all other databases",
-                oneMembershipNote: "Only showing databases where this user does not have membership yet. Each user can have only one membership per database."
+                addFailed: "Could not add member. Please try again."
             },
 
             // Edit member modal
@@ -246,19 +191,7 @@ const translations = {
                 title: "Available Database Roles",
                 noDescription: "No description",
                 selected: "✓ Selected"
-            },
-            attachUser: {
-                title: "Attach User to Database Member",
-                replaceTitle: "Replace Attached User",
-                searchLabel: "Search for a user",
-                searchPlaceholder: "Search by name, username, or email...",
-                hint: "This database user is not linked to any auth user. You can attach a user to enable authentication.",
-                replaceHint: "This database user is currently linked to an auth user. You can replace it with another user.",
-                attachButton: "Attach User",
-                replaceButton: "Replace User",
-                cancel: "Cancel",
-                filterNote: "Only users without an existing membership in this database are shown."
-            },
+            }
         },
         // In i18n.js, inside the `en` object, the users section should be:
         users: {
@@ -768,53 +701,6 @@ const translations = {
             toast: {
                 passwordCopied: "Пароль скопирован в буфер обмена",
                 usernameCopied: "Имя пользователя скопировано в буфер обмена"
-            },
-            credentials: {
-                sharedPasswordTitle: "Общий пароль базы данных",
-                sharedPasswordSubtitle: "Этот пароль используется для всех подключений к базам данных",
-                password: "Пароль",
-                showPassword: "Показать пароль",
-                hidePassword: "Скрыть пароль",
-                editPassword: "Изменить пароль",
-                passwordHidden: "••••••••"
-            },
-
-            availableDatabases: {
-                title: "Ваши базы данных",
-                username: "Имя пользователя",
-                roles: "Роли",
-                noDatabases: "Нет доступных баз данных",
-                noRoles: "Роли не назначены",
-                viewRole: "Нажмите для просмотра описания"
-            },
-
-            passwordChange: {
-                title: "Изменить пароль",
-                currentPassword: "Текущий пароль",
-                currentPasswordPlaceholder: "Введите текущий пароль",
-                newPassword: "Новый пароль",
-                newPasswordPlaceholder: "Введите новый пароль (мин. 6 символов)",
-                verify: "Проверить",
-                verifying: "Проверка...",
-                save: "Сохранить пароль",
-                saving: "Сохранение...",
-                cancel: "Отмена",
-                verified: "Пароль успешно проверен!",
-                incorrectPassword: "Неверный пароль. Попробуйте ещё раз.",
-                enterCurrent: "Пожалуйста, введите текущий пароль",
-                enterNew: "Пожалуйста, введите новый пароль",
-                minLength: "Пароль должен содержать не менее 6 символов",
-                updateSuccess: "Пароль успешно обновлён",
-                updateError: "Не удалось обновить пароль",
-                verificationError: "Ошибка проверки пароля"
-            },
-
-            roleModal: {
-                title: "Детали роли",
-                roleName: "Название роли",
-                description: "Описание",
-                noDescription: "Описание отсутствует",
-                close: "Закрыть"
             }
         },
 
@@ -830,10 +716,8 @@ const translations = {
                 addMember: "Добавить участника",
                 noMembers: "Нет участников",
                 editMember: "Редактировать участника",
-                deleteMember: "Удалить участника",
-                attachUser: "Привязать пользователя"
+                deleteMember: "Удалить участника"
             },
-
             memberModal: {
                 unknownUser: "Неизвестный пользователь",
                 username: "Имя пользователя",
@@ -855,10 +739,6 @@ const translations = {
                 searching: "Поиск...",
                 noUsersFound: "Пользователи не найдены",
                 failedToLoad: "Не удалось загрузить пользователей",
-                autoPassword: "Надёжный пароль будет сгенерирован автоматически",
-                additionalDatabases: "Создать в дополнительных базах данных (необязательно)",
-                selectDatabases: "Выберите базы данных, в которых также будет создан этот пользователь",
-                noDatabases: "Нет других доступных баз данных",
                 selectedUser: "Выбранный пользователь",
                 dbUsername: "Имя пользователя БД",
                 dbUsernamePlaceholder: "Введите имя пользователя БД",
@@ -877,9 +757,7 @@ const translations = {
                 fillAllFields: "Пожалуйста, заполните все обязательные поля",
                 invalidUsername: "Имя пользователя БД может содержать только буквы, цифры и подчёркивания",
                 memberAdded: "добавлен в",
-                addFailed: "Не удалось добавить участника. Попробуйте ещё раз.",
-                userHasAccessToAll: "Этот пользователь уже имеет доступ ко всем другим базам данных",
-                oneMembershipNote: "Показаны только базы данных, где у этого пользователя еще нет членства. Каждый пользователь может иметь только одно членство в каждой базе данных."
+                addFailed: "Не удалось добавить участника. Попробуйте ещё раз."
             },
             editMember: {
                 title: "Редактировать участника:",
@@ -917,20 +795,7 @@ const translations = {
                 title: "Доступные роли БД",
                 noDescription: "Без описания",
                 selected: "✓ Выбрано"
-            },
-
-            attachUser: {
-                title: "Привязать пользователя к участнику БД",
-                replaceTitle: "Заменить привязанного пользователя",
-                searchLabel: "Поиск пользователя",
-                searchPlaceholder: "Поиск по имени, username или email...",
-                hint: "Этот пользователь БД не связан ни с одним пользователем аутентификации. Вы можете привязать пользователя для включения аутентификации.",
-                replaceHint: "Этот пользователь БД в настоящее время связан с пользователем аутентификации. Вы можете заменить его на другого пользователя.",
-                attachButton: "Привязать пользователя",
-                replaceButton: "Заменить пользователя",
-                cancel: "Отмена",
-                filterNote: "Показаны только пользователи, у которых нет членства в этой базе данных."
-            },
+            }
         },
 
         // Users Page
@@ -1435,52 +1300,6 @@ const translations = {
             toast: {
                 passwordCopied: "Parol buferga nusxalandi",
                 usernameCopied: "Foydalanuvchi nomi buferga nusxalandi"
-            },
-            credentials: {
-                sharedPasswordTitle: "Umumiy ma'lumotlar bazasi paroli",
-                sharedPasswordSubtitle: "Ushbu parol barcha ma'lumotlar bazasi ulanishlari uchun ishlatiladi",
-                password: "Parol",
-                showPassword: "Parolni ko'rsatish",
-                hidePassword: "Parolni yashirish",
-                editPassword: "Parolni tahrirlash",
-                passwordHidden: "••••••••"
-            },
-
-            availableDatabases: {
-                title: "Sizning ma'lumotlar bazalaringiz",
-                username: "Foydalanuvchi nomi",
-                roles: "Rollar",
-                noDatabases: "Mavjud bazalar yo'q",
-                noRoles: "Rollar belgilanmagan",
-                viewRole: "Tavsifni ko'rish uchun bosing"
-            },
-            passwordChange: {
-                title: "Parolni o'zgartirish",
-                currentPassword: "Joriy parol",
-                currentPasswordPlaceholder: "Joriy parolni kiriting",
-                newPassword: "Yangi parol",
-                newPasswordPlaceholder: "Yangi parolni kiriting (min. 6 ta belgi)",
-                verify: "Tekshirish",
-                verifying: "Tekshirilmoqda...",
-                save: "Parolni saqlash",
-                saving: "Saqlanmoqda...",
-                cancel: "Bekor qilish",
-                verified: "Parol muvaffaqiyatli tekshirildi!",
-                incorrectPassword: "Noto'g'ri parol. Qaytadan urinib ko'ring.",
-                enterCurrent: "Iltimos, joriy parolni kiriting",
-                enterNew: "Iltimos, yangi parolni kiriting",
-                minLength: "Parol kamida 6 ta belgidan iborat bo'lishi kerak",
-                updateSuccess: "Parol muvaffaqiyatli yangilandi",
-                updateError: "Parolni yangilab bo'lmadi",
-                verificationError: "Parolni tekshirishda xatolik"
-            },
-
-            roleModal: {
-                title: "Rol tafsilotlari",
-                roleName: "Rol nomi",
-                description: "Tavsif",
-                noDescription: "Tavsif mavjud emas",
-                close: "Yopish"
             }
         },
 
@@ -1496,8 +1315,7 @@ const translations = {
                 addMember: "A'zo qo'shish",
                 noMembers: "A'zolar yo'q",
                 editMember: "A'zoni tahrirlash",
-                deleteMember: "A'zoni o'chirish",
-                attachUser: "Foydalanuvchini biriktirish"
+                deleteMember: "A'zoni o'chirish"
             },
             memberModal: {
                 unknownUser: "Noma'lum foydalanuvchi",
@@ -1519,10 +1337,6 @@ const translations = {
                 searchPlaceholder: "Ism, username yoki email bo'yicha qidirish...",
                 searching: "Qidirilmoqda...",
                 noUsersFound: "Foydalanuvchilar topilmadi",
-                autoPassword: "Kuchli parol avtomatik yaratiladi",
-                additionalDatabases: "Qo'shimcha ma'lumotlar bazalarida yaratish (ixtiyoriy)",
-                selectDatabases: "Ushbu foydalanuvchi yaratilishi kerak bo'lgan bazalarni tanlang",
-                noDatabases: "Boshqa mavjud bazalar yo'q",
                 failedToLoad: "Foydalanuvchilarni yuklab bo'lmadi",
                 selectedUser: "Tanlangan foydalanuvchi",
                 dbUsername: "MB foydalanuvchi nomi",
@@ -1542,9 +1356,7 @@ const translations = {
                 fillAllFields: "Iltimos, barcha majburiy maydonlarni to'ldiring",
                 invalidUsername: "MB foydalanuvchi nomi faqat harflar, raqamlar va pastki chiziqlarni o'z ichiga olishi mumkin",
                 memberAdded: "qo'shildi:",
-                addFailed: "A'zoni qo'shib bo'lmadi. Qaytadan urinib ko'ring.",
-                userHasAccessToAll: "Bu foydalanuvchi allaqachon barcha boshqa ma'lumotlar bazalariga kirishga ega",
-                oneMembershipNote: "Faqat ushbu foydalanuvchi hali a'zolik huquqiga ega bo'lmagan ma'lumotlar bazalari ko'rsatilmoqda. Har bir foydalanuvchi har bir ma'lumotlar bazasida faqat bitta a'zolikga ega bo'lishi mumkin."
+                addFailed: "A'zoni qo'shib bo'lmadi. Qaytadan urinib ko'ring."
             },
             editMember: {
                 title: "A'zoni tahrirlash:",
@@ -1582,20 +1394,7 @@ const translations = {
                 title: "Mavjud MB rollari",
                 noDescription: "Tavsif yo'q",
                 selected: "✓ Tanlangan"
-            },
-
-            attachUser: {
-                title: "MB foydalanuvchisiga foydalanuvchi biriktirish",
-                replaceTitle: "Biriktirilgan foydalanuvchini almashtirish",
-                searchLabel: "Foydalanuvchini qidirish",
-                searchPlaceholder: "Ism, username yoki email bo'yicha qidirish...",
-                hint: "Bu MB foydalanuvchisi hech qanday autentifikatsiya foydalanuvchisiga bog'lanmagan. Autentifikatsiyani yoqish uchun foydalanuvchini biriktiring.",
-                replaceHint: "Bu MB foydalanuvchisi hozirda autentifikatsiya foydalanuvchisiga bog'langan. Uni boshqa foydalanuvchi bilan almashtirish mumkin.",
-                attachButton: "Foydalanuvchini biriktirish",
-                replaceButton: "Foydalanuvchini almashtirish",
-                cancel: "Bekor qilish",
-                filterNote: "Faqat ushbu ma'lumotlar bazasida a'zolik huquqiga ega bo'lmagan foydalanuvchilar ko'rsatilmoqda."
-            },
+            }
         },
 
         // Users Page
@@ -2090,7 +1889,7 @@ class I18n {
         window.history.pushState({}, '', url);
 
         // Trigger update event
-        window.dispatchEvent(new CustomEvent('languageChanged', {detail: {lang}}));
+        window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
     }
 
     // Get current language
@@ -2108,14 +1907,14 @@ window.t = (key) => window.i18n.t(key);
 // ==================== SETTINGS INTEGRATION ====================
 // Bridge with settings-sync.js for seamless language switching
 
-(function () {
+(function() {
     console.log('✅ i18n loaded, current language:', window.i18n.getCurrentLanguage());
 
     // Store the original handleLanguageChange if it exists
     const originalHandleLanguageChange = window.handleLanguageChange;
 
     // Enhanced handleLanguageChange that updates UI instantly
-    window.handleLanguageChange = function (language) {
+    window.handleLanguageChange = function(language) {
         console.log('🌐 Language change triggered:', language);
 
         // 1. Update i18n immediately for instant UI change
