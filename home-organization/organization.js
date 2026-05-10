@@ -356,7 +356,7 @@ function goBackToStep1() {
 // ==================== COPY ORGANIZATION ID ====================
 
 document.getElementById('goToLoginBtn').addEventListener('click', () => {
-    window.location.href = '/db-controller-front/login/login.html';
+    window.location.href = '/login/';
 });
 
 // ==================== INITIALIZE ====================
