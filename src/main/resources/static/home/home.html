@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DB-Controller - Database Management Platform</title>
+    <link rel="stylesheet" href="../home/home.css">
+</head>
+<body class="has-gradient">
+
+
+<div class="language-selector">
+    <div class="lang-dropdown" id="langDropdown">
+        <button class="lang-button" id="langButton" aria-label="Select Language">
+            <span class="lang-icon" id="currentLangIcon">🇬🇧</span>
+            <span class="lang-text" id="currentLangText">EN</span>
+            <svg class="lang-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </button>
+
+        <div class="lang-menu" id="langMenu">
+            <div class="lang-option active" data-lang="en">
+                <span class="lang-option-icon">🇬🇧</span>
+                <span>English</span>
+            </div>
+            <div class="lang-option" data-lang="ru">
+                <span class="lang-option-icon">🇷🇺</span>
+                <span>Русский</span>
+            </div>
+            <div class="lang-option" data-lang="uz">
+                <span class="lang-option-icon">🇺🇿</span>
+                <span>O'zbek</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="hero-content">
+        <div class="logo">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                </svg>
+            </div>
+            <h1 data-i18n="home.title">DB-Controller</h1>
+        </div>
+
+        <p class="tagline" data-i18n="home.tagline">Powerful Database Management for Modern Teams</p>
+
+        <div class="cta-buttons">
+            <a href="../login" class="btn btn-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                    <polyline points="10 17 15 12 10 7"></polyline>
+                    <line x1="15" y1="12" x2="3" y2="12"></line>
+                </svg>
+                <span data-i18n="home.login">Login</span>
+            </a>
+            <a href="#" id="createOrgLink" class="btn btn-secondary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span data-i18n="home.createOrg">Create Organization</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="scroll-indicator">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+        <span data-i18n="home.scrollMore">Scroll to learn more</span>
+    </div>
+</div>
+
+<!-- Info Section -->
+<div class="info-section">
+    <div class="info-container">
+        <div class="section-header">
+            <h2 data-i18n="home.aboutTitle">About the Project</h2>
+            <p data-i18n="home.aboutSubtitle">Everything you need to know about DB-Controller</p>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                    </svg>
+                </div>
+                <h3 data-i18n="home.feature1Title">Database Management</h3>
+                <p data-i18n="home.feature1Desc">Centralized control over all your database connections. Manage credentials, monitor access, and maintain security across your entire infrastructure.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <h3 data-i18n="home.feature2Title">Team Collaboration</h3>
+                <p data-i18n="home.feature2Desc">Invite team members, assign roles, and manage permissions with ease. Keep your team organized and productive with granular access control.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </div>
+                <h3 data-i18n="home.feature3Title">Secure & Encrypted</h3>
+                <p data-i18n="home.feature3Desc">Enterprise-grade security with encrypted credentials, secure authentication, and comprehensive audit logs to keep your data safe.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                </div>
+                <h3 data-i18n="home.feature4Title">Real-time Monitoring</h3>
+                <p data-i18n="home.feature4Desc">Track database performance, monitor connection health, and receive instant alerts when something needs attention.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                </div>
+                <h3 data-i18n="home.feature5Title">Role-Based Access</h3>
+                <p data-i18n="home.feature5Desc">Define custom roles and permissions for different team members. Ensure everyone has exactly the access they need, nothing more.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                </div>
+                <h3 data-i18n="home.feature6Title">Multi-Database Support</h3>
+                <p data-i18n="home.feature6Desc">Work with PostgreSQL, MySQL, MongoDB, and more. DB-Controller supports all major database systems in one unified interface.</p>
+            </div>
+        </div>
+
+        <!-- How It Works Section -->
+        <div class="how-it-works">
+            <h2 data-i18n="home.howItWorksTitle">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 data-i18n="home.step1Title">Create Organization</h3>
+                        <p data-i18n="home.step1Desc">Set up your organization and receive a unique Organization ID for your db-agent configuration.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 data-i18n="home.step2Title">Configure DB Agent</h3>
+                        <p data-i18n="home.step2Desc">Install and configure the db-agent with your Organization ID to connect your databases securely.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 data-i18n="home.step3Title">Manage & Monitor</h3>
+                        <p data-i18n="home.step3Desc">Access your dashboard to manage databases, invite team members, and monitor everything in real-time.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2 data-i18n="home.ctaTitle">Ready to Get Started?</h2>
+            <p data-i18n="home.ctaSubtitle">Join teams worldwide who trust DB-Controller for their database management needs</p>
+            <div class="cta-buttons">
+                <a href="#" id="ctaCreateOrgLink" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <span data-i18n="home.createOrg">Create Organization</span>
+                </a>
+                <a href="../login" class="btn btn-outline">
+                    <span data-i18n="home.alreadyHaveAccount">Already have an account? Login</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+            </svg>
+            <span data-i18n="home.title">DB-Controller</span>
+        </div>
+        <p data-i18n="home.footerCopyright">&copy; 2025 DB-Controller. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Load i18n FIRST -->
+<script src="../scripts/i18n.js"></script>
+<!-- Then load home.js -->
+<script src="../home/home.js"></script>
+
+</body>
+</html>

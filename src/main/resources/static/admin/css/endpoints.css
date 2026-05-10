@@ -1,0 +1,402 @@
+/* ==================== ENDPOINTS SECTION STYLES ==================== */
+
+/* CONTROLS - REDESIGNED */
+.endpoints-controls {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.date-control {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.date-control label {
+    font-weight: 600;
+    color: #475569;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.fancy-date-picker {
+    padding: 10px 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    color: #1e293b;
+    min-width: 160px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.fancy-date-picker:hover {
+    border-color: #667eea;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+}
+
+.fancy-date-picker:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+/* Custom date picker icon styling */
+.fancy-date-picker::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: opacity(0.6);
+    transition: filter 0.3s ease;
+}
+
+.fancy-date-picker::-webkit-calendar-picker-indicator:hover {
+    filter: opacity(1);
+}
+
+.instant-btn {
+    padding: 10px 18px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.instant-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.5);
+}
+
+.instant-btn:active {
+    transform: translateY(0);
+}
+
+/* TABLE HEADER WITH FILTER - FIXED */
+.endpoints-table th {
+    position: relative;
+}
+
+.th-with-filter-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-start;
+}
+
+.filter-btn-inline {
+    padding: 5px 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(102, 126, 234, 0.25);
+    white-space: nowrap;
+}
+
+.filter-btn-inline:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(102, 126, 234, 0.4);
+}
+
+.filter-btn-inline:active {
+    transform: translateY(0);
+}
+
+.filter-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 8px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border: 2px solid #e2e8f0;
+    min-width: 170px;
+    z-index: 1000;
+    display: none;
+    overflow: hidden;
+}
+
+.filter-dropdown.show {
+    display: block;
+    animation: dropdownFadeIn 0.2s ease;
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.filter-option {
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 13px;
+    font-weight: 500;
+    color: #475569;
+    border-bottom: 1px solid #f1f5f9;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-option:last-child {
+    border-bottom: none;
+}
+
+.filter-option:hover {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    color: #667eea;
+    padding-left: 20px;
+}
+
+/* TABLE */
+.table-container {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.endpoints-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.endpoints-table thead {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.endpoints-table th {
+    padding: 18px 24px;
+    text-align: left;
+    font-weight: 700;
+    color: #475569;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.endpoints-table tbody tr {
+    border-bottom: 1px solid #f1f5f9;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.endpoints-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.endpoints-table tbody tr.expanded {
+    background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
+}
+
+.endpoints-table td {
+    padding: 18px 24px;
+    font-size: 14px;
+}
+
+.rank-cell {
+    font-weight: 700;
+    color: #667eea;
+    font-size: 16px;
+}
+
+.method-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.method-GET {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+    box-shadow: 0 2px 4px rgba(21, 87, 36, 0.1);
+}
+
+.method-POST {
+    background: linear-gradient(135deg, #cce5ff 0%, #b3d7ff 100%);
+    color: #004085;
+    box-shadow: 0 2px 4px rgba(0, 64, 133, 0.1);
+}
+
+.method-PUT {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+    color: #856404;
+    box-shadow: 0 2px 4px rgba(133, 100, 4, 0.1);
+}
+
+.method-DELETE {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    color: #721c24;
+    box-shadow: 0 2px 4px rgba(114, 28, 36, 0.1);
+}
+
+.path-cell {
+    font-family: 'Courier New', monospace;
+    color: #475569;
+    font-weight: 500;
+}
+
+.response-time {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.response-fast {
+    color: #10b981;
+}
+
+.response-medium {
+    color: #f59e0b;
+}
+
+.response-slow {
+    color: #ef4444;
+}
+
+.expand-icon {
+    font-size: 14px;
+    color: #94a3b8;
+    transition: transform 0.3s ease;
+}
+
+.expanded .expand-icon {
+    transform: rotate(90deg);
+    color: #667eea;
+}
+
+/* EXPANDED DETAILS ROW */
+.details-row {
+    display: none;
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+}
+
+.details-row.show {
+    display: table-row;
+}
+
+.details-cell {
+    padding: 32px 24px !important;
+    border-top: 2px solid #e2e8f0;
+}
+
+.details-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.detail-item {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.detail-item:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+    transform: translateY(-2px);
+}
+
+.detail-label {
+    font-size: 11px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.detail-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.success-rate {
+    color: #10b981;
+}
+
+.failure-rate {
+    color: #ef4444;
+}
+
+.peak-hours {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.hour-badge {
+    display: inline-block;
+    padding: 8px 14px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    transition: all 0.2s ease;
+}
+
+.hour-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .endpoints-table {
+        font-size: 13px;
+    }
+
+    .endpoints-table th,
+    .endpoints-table td {
+        padding: 12px 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .details-content {
+        grid-template-columns: 1fr;
+    }
+
+    .endpoints-table {
+        display: block;
+        overflow-x: auto;
+    }
+}
