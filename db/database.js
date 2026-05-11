@@ -1419,10 +1419,10 @@ window.addEventListener('languageChanged', () => {
     if (document.getElementById('editMemberModalOverlay').style.display === 'flex') {
         updateEditMemberModalTranslations();
     }
-    if (document.getElementById('deleteConfirmOverlay').style.display === 'flex') {
+    if (document.getElementById('deleteConfirmOverlay') && document.getElementById('deleteConfirmOverlay').style.display === 'flex') {
         updateDeleteMemberModalTranslations();
     }
-    if (document.getElementById('attachUserModalOverlay').style.display === 'flex') {
+    if (document.getElementById('attachUserModalOverlay') && document.getElementById('attachUserModalOverlay').style.display === 'flex') {
         updateAttachUserModalTranslations();
     }
 });
