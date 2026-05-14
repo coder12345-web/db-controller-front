@@ -484,7 +484,7 @@ function renderDatabasesPage(data) {
                         <div class="database-roles">
                             ${db.roleNames && db.roleNames.length > 0
                 ? db.roleNames.map(role => `
-                                    <span class="role-badge" onclick='openRoleModal(${JSON.stringify(role).replace(/'/g, "&#39;")})' title="${t('main.availableDatabases.viewRole')}">
+                                    <span class="role-badge" data-role='${JSON.stringify(role).replace(/'/g, "&#39;")}' title="${t('main.availableDatabases.viewRole')}">
                                         ${role.name}
                                     </span>
                                 `).join('')
@@ -500,6 +500,13 @@ function renderDatabasesPage(data) {
     }
 
     container.innerHTML = sharedPasswordHTML + databasesHTML;
+
+    container.querySelectorAll('.role-badge[data-role]').forEach(badge => {
+        badge.addEventListener('click', () => {
+            const role = JSON.parse(badge.dataset.role);
+            openRoleModal(role);
+        });
+    });
 }
 
 // ==================== HANDLE LANGUAGE CHANGE EVENT ====================
