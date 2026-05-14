@@ -437,8 +437,6 @@ function initDatabaseSection() {
 // Make functions available for language change events
 window.loadDatabases = loadDatabases;
 
-// Add after initDatabaseSection()
-
 function updateDatabasesPageHeaders() {
     const databasesPage = document.getElementById('databasesPage');
     if (!databasesPage) return;
@@ -450,22 +448,6 @@ function updateDatabasesPageHeaders() {
     if (p) p.textContent = window.t('databases.pageSubtitle');
 }
 
-// Call on page load
-document.addEventListener('DOMContentLoaded', () => {
-    initDatabaseSection();
-    updateDatabasesPageHeaders(); // Add this
-});
-
-// Update on language change
-window.addEventListener('languageChanged', () => {
-    updateDatabasesPageHeaders();
-
-    const databasesPage = document.getElementById('databasesPage');
-    if (databasesPage && databasesPage.classList.contains('active')) {
-        loadDatabases();
-    }
-});
-
 // ==================== ADD MEMBER MODAL ====================
 
 let currentDatabase = null;
@@ -473,14 +455,14 @@ let selectedUser = null;
 let searchTimeout = null;
 let availableRoles = [];
 let selectedRoles = [];
-let selectedAdditionalDatabases = []; // NEW: Track selected additional databases
-let allDatabases = []; // NEW: Store all databases for selection
+let selectedAdditionalDatabases = [];
+let allDatabases = [];
 
 function openAddMemberModal(database) {
     currentDatabase = database;
     selectedUser = null;
     selectedRoles = [];
-    selectedAdditionalDatabases = []; // NEW: Reset selected databases
+    selectedAdditionalDatabases = [];
 
     document.getElementById('addMemberModalTitle').textContent = `Add Member to ${database.name}`;
     document.getElementById('addMemberModalOverlay').style.display = 'flex';
@@ -500,7 +482,6 @@ function closeAddMemberModal() {
     selectedAdditionalDatabases = [];
 
     document.getElementById('userSearchInput').value = '';
-    // REMOVED: document.getElementById('dbUsernameInput').value = '';
 
     const submitBtn = document.getElementById('addMemberSubmitBtn');
     submitBtn.disabled = false;
@@ -534,7 +515,6 @@ async function searchUsers(query) {
     userList.innerHTML = '<div class="user-loading">Searching...</div>';
 
     try {
-        // Check if we have a current database selected
         if (!currentDatabase || !currentDatabase.id) {
             console.error('No database selected for user search');
             userList.innerHTML = '<div class="user-empty">Database not selected</div>';
@@ -542,7 +522,6 @@ async function searchUsers(query) {
         }
 
         const searchParam = query.trim() || '';
-        // NEW: Include database ID in the endpoint
         const users = await apiCall(`/user/search/${currentDatabase.id}?search=${encodeURIComponent(searchParam)}`);
         renderUserList(users);
     } catch (error) {
@@ -594,25 +573,19 @@ async function goToNextStep() {
     if (!selectedUser) return;
     document.getElementById('selectedUserName').textContent = selectedUser.name;
 
-    // Load roles for the specific database
     await loadAvailableRoles();
-
-    // NEW: Load all databases for additional database selection
     await loadAllDatabasesForSelection();
 
     renderSelectedRoles();
-    renderAdditionalDatabases(); // NEW: Render database checkboxes
+    renderAdditionalDatabases();
     showAddMemberStep(2);
 }
 
 async function loadAllDatabasesForSelection() {
     try {
         allDatabases = await fetchDatabases();
-
-        // Filter out current database
         allDatabases = allDatabases.filter(db => db.id !== currentDatabase.id);
 
-        // ✅ Also filter out databases where selectedUser is already a member
         if (selectedUser) {
             allDatabases = allDatabases.filter(db => {
                 if (!db.members || db.members.length === 0) return true;
@@ -645,7 +618,6 @@ function renderAdditionalDatabases() {
         return;
     }
 
-    // ✅ Use fully inline styles — no class dependency
     const noteDiv = document.createElement('div');
     noteDiv.style.cssText = `
         display: flex;
@@ -671,7 +643,6 @@ function renderAdditionalDatabases() {
     `;
     container.appendChild(noteDiv);
 
-    // Render database checkboxes (unchanged)
     allDatabases.forEach(db => {
         const dbCheckbox = document.createElement('label');
         dbCheckbox.classList.add('database-checkbox-item');
@@ -702,21 +673,17 @@ function goBackStep() {
 }
 
 async function submitAddMember() {
-    // REMOVED: Database username validation
-
     const submitBtn = document.getElementById('addMemberSubmitBtn');
     submitBtn.disabled = true;
     submitBtn.textContent = 'Adding...';
 
     try {
         const payload = {
-            // REMOVED: dbUsername field
             databaseId: currentDatabase.id,
             authUserId: selectedUser.id,
             roles: selectedRoles.map(role => role.id)
         };
 
-        // Determine which API endpoint to call
         if (selectedAdditionalDatabases.length > 0) {
             const queryParams = selectedAdditionalDatabases.map(id => `databases=${id}`).join('&');
             await apiCall(`/databaseUser?${queryParams}`, {
@@ -875,14 +842,13 @@ function handleRolesExpandOverlayClick(e) {
 
 let memberToEdit = null;
 let editSelectedRoles = [];
-let originalEditRoles = []; // Add this line
+let originalEditRoles = [];
 
 function openEditMemberModal(member, database) {
     memberToEdit = member;
     editSelectedRoles = member.roles ? [...member.roles] : [];
     currentDatabase = database;
 
-    // Store original roles for comparison
     originalEditRoles = member.roles ? [...member.roles] : [];
 
     const username = member.authUserDto ? member.authUserDto.username : 'Unknown';
@@ -898,7 +864,7 @@ function openEditMemberModal(member, database) {
 
 function closeEditMemberModal() {
     document.getElementById('editMemberModalOverlay').style.display = 'none';
-    closeEditRolesExpandModal(); // Close roles modal when main modal closes
+    closeEditRolesExpandModal();
 
     memberToEdit = null;
     editSelectedRoles = [];
@@ -965,7 +931,6 @@ async function submitEditMember() {
         return;
     }
 
-    // Check if roles have changed
     const rolesChanged = !areRolesEqual(originalEditRoles, editSelectedRoles);
 
     if (!rolesChanged) {
@@ -973,8 +938,6 @@ async function submitEditMember() {
         showToast(`changes are successfully saved`, 'success');
         return;
     }
-    console.log("editSelectedRoles:", editSelectedRoles);
-    console.log("mapped role ids:", editSelectedRoles.map(r => r.id));
 
     const submitBtn = document.getElementById('editMemberSubmitBtn');
     submitBtn.disabled = true;
@@ -1008,15 +971,10 @@ async function submitEditMember() {
     }
 }
 
-// Helper function to compare two role arrays
 function areRolesEqual(roles1, roles2) {
-    if (roles1.length !== roles2.length) {
-        return false;
-    }
-
+    if (roles1.length !== roles2.length) return false;
     const ids1 = roles1.map(r => r.id).sort();
     const ids2 = roles2.map(r => r.id).sort();
-
     return ids1.every((id, index) => id === ids2[index]);
 }
 
@@ -1194,17 +1152,12 @@ function openAttachUserModal(member, database, replaceMode = false) {
         : window.t('databases.attachUser.title');
 
     document.getElementById('attachUserModalOverlay').style.display = 'flex';
-
-    // Search all users initially
     searchAttachUsers('');
-
     updateAttachUserModalTranslations();
 }
 
-// Helper function to open attach modal from member detail modal
 function openAttachUserModalFromDetail(replaceMode = false) {
     if (!window.currentMemberForAttach) return;
-
     openAttachUserModal(window.currentMemberForAttach, window.currentDatabaseForAttach, replaceMode);
 }
 
@@ -1225,8 +1178,6 @@ function closeAttachUserModal() {
 
 async function searchAttachUsers(query) {
     const userList = document.getElementById('attachUserList');
-
-    // ✅ Replace class-based spinner with simple text to avoid CSS blowout
     userList.innerHTML = '<div style="padding: 16px; text-align: center; color: #64748b; font-size: 14px;">Searching...</div>';
 
     try {
@@ -1252,7 +1203,6 @@ function handleAttachUserSearch(event) {
 
 function renderAttachUserList(users) {
     const userList = document.getElementById('attachUserList');
-
 
     const note = `
         <div style="
@@ -1325,19 +1275,15 @@ async function submitAttachUser() {
     submitBtn.textContent = isReplaceMode ? 'Replacing...' : 'Attaching...';
 
     try {
-        // FIXED: Using the correct API endpoint format
         const endpoint = `/databaseUser/${memberToAttach.id}/attach/${selectedAttachUser.id}`;
 
-        await apiCall(endpoint, {
-            method: 'POST'
-        });
+        await apiCall(endpoint, { method: 'POST' });
 
         const userName = selectedAttachUser.name;
         const action = isReplaceMode ? 'replaced with' : 'attached to';
 
         closeAttachUserModal();
 
-        // Close member detail modal if it's open
         if (document.getElementById('memberModalOverlay').style.display === 'flex') {
             closeMemberModal();
         }
@@ -1394,9 +1340,14 @@ function updateAttachUserModalTranslations() {
 
 document.addEventListener('DOMContentLoaded', () => {
     initDatabaseSection();
+    updateDatabasesPageHeaders();
 });
 
+// Single languageChanged listener — only runs after app is initialized
 window.addEventListener('languageChanged', () => {
+    // Skip during initial page load to prevent modal auto-open
+    if (!window.appInitialized) return;
+
     updateDatabasesPageHeaders();
 
     const databasesPage = document.getElementById('databasesPage');
@@ -1404,19 +1355,16 @@ window.addEventListener('languageChanged', () => {
         loadDatabases();
     }
 
-    // Update open modals
     if (document.getElementById('addMemberModalOverlay').style.display === 'flex') {
         updateAddMemberModalTranslations();
     }
     if (document.getElementById('editMemberModalOverlay').style.display === 'flex') {
         updateEditMemberModalTranslations();
     }
-    if (document.getElementById('deleteConfirmOverlay').style.display === 'flex') {
+    if (document.getElementById('deleteConfirmOverlay') && document.getElementById('deleteConfirmOverlay').style.display === 'flex') {
         updateDeleteMemberModalTranslations();
     }
-    if (document.getElementById('attachUserModalOverlay').style.display === 'flex') {
+    if (document.getElementById('attachUserModalOverlay') && document.getElementById('attachUserModalOverlay').style.display === 'flex') {
         updateAttachUserModalTranslations();
     }
 });
-window.closeMemberModal = closeMemberModal;
-window.handleMemberModalOverlayClick = handleMemberModalOverlayClick;
