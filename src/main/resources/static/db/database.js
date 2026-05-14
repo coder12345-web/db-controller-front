@@ -437,14 +437,6 @@ function initDatabaseSection() {
 // Make functions available for language change events
 window.loadDatabases = loadDatabases;
 
-// Listen for language changes
-window.addEventListener('languageChanged', () => {
-    const databasesPage = document.getElementById('databasesPage');
-    if (databasesPage && databasesPage.classList.contains('active')) {
-        loadDatabases();
-    }
-});
-
 // Add after initDatabaseSection()
 
 function updateDatabasesPageHeaders() {
@@ -1426,3 +1418,5 @@ window.addEventListener('languageChanged', () => {
         updateAttachUserModalTranslations();
     }
 });
+window.closeMemberModal = closeMemberModal;
+window.handleMemberModalOverlayClick = handleMemberModalOverlayClick;
